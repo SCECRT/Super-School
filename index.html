@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super School | Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --accent: #3b82f6;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --panic: #ef4444;
+        }
+
+        body, html { 
+            margin: 0; padding: 0; height: 100%; overflow: hidden; 
+            background: var(--bg); font-family: 'Inter', sans-serif; color: var(--text-main);
+        }
+
+        #nav-bar { 
+            position: absolute; top: 0; left: 0; width: 100%; 
+            background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px);
+            padding: 10px 20px; display: flex; align-items: center; gap: 12px; z-index: 100; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-sizing: border-box;
+        }
+
+        input { 
+            flex-grow: 1; padding: 8px 16px; border-radius: 8px; 
+            border: 1px solid #334155; background: #1e293b; 
+            color: white; font-size: 14px; transition: 0.2s;
+        }
+
+        button { 
+            cursor: pointer; padding: 8px 16px; border-radius: 8px; border: none; 
+            background: var(--surface); color: var(--text-main); font-size: 13px; font-weight: 600;
+            transition: 0.2s;
+        }
+        button:hover { background: #334155; transform: translateY(-1px); }
+
+        #go-btn { background: var(--accent); color: white; }
+
+        .panic-btn { background: var(--panic); color: white; margin-left: auto; }
+        
+        #clock-container { text-align: right; margin: 0 15px; line-height: 1.1; }
+        #clock { font-size: 14px; font-weight: 600; color: white; }
+        #date { font-size: 11px; color: var(--text-dim); }
+
+        #side-menu {
+            position: fixed; top: 0; left: -320px; width: 300px; height: 100%;
+            background: var(--surface); border-right: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 200; transition: 0.3s ease; padding: 40px 20px; box-sizing: border-box;
+            overflow-y: auto;
+        }
+        #side-menu.active { left: 0; }
+        #side-menu h3 { font-size: 18px; margin-bottom: 5px; color: white; }
+        #side-menu p { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; }
+        
+        .link-item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 8px; background: rgba(255,255,255,0.03); 
+            padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .launch-btn { background: var(--accent); color: white; font-size: 10px; padding: 6px 10px; }
+
+        #game-container { width: 100vw; height: 100vh; padding-top: 58px; box-sizing: border-box; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+
+    <div id="nav-bar">
+        <button onclick="toggleMenu()">Library</button>
+        <input type="text" id="urlInput" placeholder="Paste URL here...">
+        <button id="go-btn" onclick="cleanLoad(document.getElementById('urlInput').value)">Launch</button>
+        
+        <div id="clock-container">
+            <div id="clock">00:00:00 AM</div>
+            <div id="date">Feb 18, 2026</div>
+        </div>
+
+        <button class="panic-btn" onclick="panic()">Panic</button>
+    </div>
+
+    <div id="side-menu">
+        <button onclick="toggleMenu()" style="position:absolute; top:15px; right:15px; background:transparent;">✕</button>
+        <h3>Library</h3>
+        <p>These are websites tested to work using this tool, wifi filters may limit some websites.</p>
+        <br>
+        <br>
+        <div class="link-item"><span>Polytrack</span><button class="launch-btn" onclick="quickLaunch('https://www.crazygames.com/embed/polytrack')">LAUNCH</button></div>
+        <div class="link-item"><span>2048</span><button class="launch-btn" onclick="quickLaunch('https://mgarciaisaia.github.io/2048/')">LAUNCH</button></div>
+        <div class="link-item"><span>Bubble Shooter</span><button class="launch-btn" onclick="quickLaunch('https://www.bubbleshooter.com')">LAUNCH</button></div>
+        <div class="link-item"><span>Zombs Royale</span><button class="launch-btn" onclick="quickLaunch('https://zombsroyale.io')">LAUNCH</button></div>
+        <div class="link-item"><span>Skribbl.io</span><button class="launch-btn" onclick="quickLaunch('https://skribbl.io')">LAUNCH</button></div>
+        <div class="link-item"><span>Paper.io</span><button class="launch-btn" onclick="quickLaunch('https://paper-io.com')">LAUNCH</button></div>
+        <div class="link-item"><span>Jellymar.io</span><button class="launch-btn" onclick="quickLaunch('https://jellymar.io')">LAUNCH</button></div>
+        <div class="link-item"><span>Ultrabox</span><button class="launch-btn" onclick="quickLaunch('https://ultraabox.github.io')">LAUNCH</button></div>
+        <div class="link-item"><span>Pixilart</span><button class="launch-btn" onclick="quickLaunch('https://www.pixilart.com/draw')">LAUNCH</button></div>
+        <div class="link-item"><span>Chrome Music Lab</span><button class="launch-btn" onclick="quickLaunch('https://musiclab.chromeexperiments.com/')">LAUNCH</button></div>
+        <div class="link-item"><span>Geometry Dash Lite</span><button class="launch-btn" onclick="quickLaunch('https://geometrylitepc.io/')">LAUNCH</button></div>
+        <div class="link-item"><span>Flappy Bird</span><button class="launch-btn" onclick="quickLaunch('https://flappybird.io/')">LAUNCH</button></div>
+        <div class="link-item"><span>Audiomass</span><button class="launch-btn" onclick="quickLaunch('https://audiomass.co/')">LAUNCH</button></div>
+        <div class="link-item"><span>MyPhysicsLab.com</span><button class="launch-btn" onclick="quickLaunch('https://www.myphysicslab.com/')">LAUNCH</button></div>
+        <div class="link-item"><span>Small Basic</span><button class="launch-btn" onclick="quickLaunch('https://smallbasic-publicwebsite-code.azurewebsites.net/')">LAUNCH</button></div>
+        <div class="link-item"><span>Mineblock</span><button class="launch-btn" onclick="quickLaunch('https://turbowarp.org/415045510/embed')">LAUNCH</button></div>
+    </div>
+
+    <div id="game-container"></div>
+
+    <script>
+        function toggleMenu() { document.getElementById('side-menu').classList.toggle('active'); }
+
+        // Restored original link behavior: Adds to bar AND launches immediately
+        function quickLaunch(url) {
+            document.getElementById('urlInput').value = url;
+            cleanLoad(url);
+            toggleMenu();
+        }
+
+        function cleanLoad(url) {
+            let container = document.getElementById('game-container');
+            container.innerHTML = '';
+            const frame = document.createElement('iframe');
+            frame.allow = "autoplay; fullscreen; keyboard-map; encrypted-media; picture-in-picture";
+            frame.style.width = '100%'; frame.style.height = '100%'; frame.style.border = 'none';
+            container.appendChild(frame);
+            try { frame.contentWindow.location.replace(url); } catch (e) { frame.src = url; }
+        }
+
+        function panic() { window.location.replace('https://classroom.google.com'); }
+
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            const dateString = now.toLocaleDateString([], { month: 'short', day: '2-digit', year: 'numeric' });
+            document.getElementById('clock').textContent = timeString;
+            document.getElementById('date').textContent = dateString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+        document.addEventListener('keydown', (e) => { if (e.key === '`') panic(); });
+    </script>
+</body>
+</html>
