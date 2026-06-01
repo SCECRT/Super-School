@@ -96,13 +96,14 @@
         </div>
 
         <button class="panic-btn" onclick="panic()">Panic</button>
+        <button onclick="menu()">Main Menu</button>
     </div>
 
     <!-- About Overlay Modal -->
     <div id="about-overlay" onclick="toggleAbout()">
         <div class="about-content" onclick="event.stopPropagation()">
-            <h3>About Super School</h3>
-            <p>Super School is a easy way to play games in the middle of class and not get caught.</p>
+            <h3>About Web Opener</h3>
+            <p>Super School's Web Opener is a secure iframe website loader that stops the iframe from being in your history.</p>
             <p style="font-size: 11px; opacity: 0.8;">Thank you for using Super School!</p>
             <button onclick="toggleAbout()" style="background: var(--accent); margin-top: 10px;">Close</button>
         </div>
@@ -113,7 +114,6 @@
         <h3>Library</h3>
         <p>These are websites tested to work using this tool, wifi filters may limit some websites.</p>
         <br>
-        <div class="link-item"><span>Polytrack</span><button class="launch-btn" onclick="quickLaunch('https://www.crazygames.com/embed/polytrack')">LAUNCH</button></div>
         <div class="link-item"><span>2048</span><button class="launch-btn" onclick="quickLaunch('https://mgarciaisaia.github.io/2048/')">LAUNCH</button></div>
         <div class="link-item"><span>Bubble Shooter</span><button class="launch-btn" onclick="quickLaunch('https://www.bubbleshooter.com')">LAUNCH</button></div>
         <div class="link-item"><span>Zombs Royale</span><button class="launch-btn" onclick="quickLaunch('https://zombsroyale.io')">LAUNCH</button></div>
@@ -158,6 +158,7 @@
         }
 
         function panic() { window.location.replace('https://classroom.google.com'); }
+        function menu() { window.location.replace('https://scecrt.github.io/Super-School/'); }
 
         function updateClock() {
             const now = new Date();
