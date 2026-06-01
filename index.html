@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super School - Dashboard</title>
+  
+  <style>
+    /* UNIVERSAL DEVICE RESETS */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      overflow-x: hidden; 
+    }
+
+    /* TOP NAV BAR (Larger Padding & Text) */
+    .top-navbar {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .nav-title {
+      font-size: 28px; /* Bigger Title */
+      font-weight: 800;
+      color: #111827;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    /* CENTRAL CONTENT WORKSPACE */
+    .main-content {
+      padding: 40px; /* More breathing room */
+      max-width: 1600px; /* Stretches wider on desktop */
+      margin: 0 auto;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 22px; /* Bigger Row Headers */
+      font-weight: 700;
+      color: #111827;
+    }
+
+    /* CAROUSEL LAYERS */
+    .carousel-layer {
+      margin-bottom: 50px; /* Extra separation */
+      position: relative;
+    }
+
+    .carousel-tray {
+      display: flex;
+      gap: 25px; /* Wider spacing between cards */
+      overflow-x: auto; 
+      scroll-snap-type: x mandatory; 
+      padding-bottom: 20px;
+      -webkit-overflow-scrolling: touch; 
+    }
+
+    /* Chromebook custom scrollbar aesthetics */
+    .carousel-tray::-webkit-scrollbar {
+      height: 8px; /* Slightly thicker scrollbar for easier navigation */
+    }
+    .carousel-tray::-webkit-scrollbar-track {
+      background: #e5e7eb;
+      border-radius: 10px;
+    }
+    .carousel-tray::-webkit-scrollbar-thumb {
+      background: #9ca3af;
+      border-radius: 10px;
+    }
+
+    /* INDIVIDUAL LARGE WEBSITE CARD ELEMENTS */
+    .carousel-card {
+      flex: 0 0 340px; /* Significantly wider card base */
+      scroll-snap-align: start;
+      background-color: #ffffff;
+      border-radius: 14px; /* Smoother corner curves */
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      will-change: transform; 
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease, border-color 0.2s;
+    }
+
+    /* Interactive Hover/Active Effects */
+    .carousel-card:hover {
+      transform: translateY(-6px); /* More noticeable hover lift */
+      box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-color: #3b82f6;
+    }
+
+    .carousel-card:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+
+    /* Card Image Container & Proportional Scaling */
+    .card-image-wrapper {
+      width: 100%;
+      height: 190px; /* Much taller image frame */
+      background-color: #e5e7eb;
+    }
+
+    .card-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+    }
+
+    /* Card Text Content Padding */
+    .card-content {
+      padding: 20px; /* Larger content container */
+    }
+
+    .card-title {
+      margin: 0 0 6px 0;
+      font-size: 19px; /* Bigger Title Text */
+      font-weight: 700;
+    }
+
+    .card-description {
+      margin: 0;
+      font-size: 14px; /* Bigger Subtext Font */
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    /* MOBILE SPECIFIC OVERRIDES (Screens smaller than a tablet) */
+    @media (max-width: 600px) {
+      .carousel-card {
+        flex: 0 0 85vw; /* Fills up most of a phone screen viewport widthwise */
+      }
+      .card-image-wrapper {
+        height: 160px; /* Scales down elegantly on tiny devices */
+      }
+      .main-content {
+        padding: 20px 15px;
+      }
+      .top-navbar {
+        padding: 15px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <nav class="top-navbar">
+    <a href="#" class="nav-title">Super School</a>
+  </nav>
+
+  <!-- Central Workspace Container -->
+  <div class="main-content">
+    
+    <!-- SECTION 1: Carousel Layer #1 -->
+    <div class="carousel-layer">
+      <h2>Search & Discovery (Layer 1)</h2>
+      <div class="carousel-tray">
+        
+        <!-- Card 1 -->
+        <a href="https://scecrt.github.io/Super-School/webopener.html" target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="wo.jpeg" alt="Web Opener"></div>
+          <div class="card-content">
+            <h3 class="card-title">Web Opener</h3>
+            <p class="card-description">Open tools and games without it ever touching your history.</p>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="Wikipedia"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="Google Drive"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="Reddit"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+        <!-- Card 5 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="Amazon"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- SECTION 2: Carousel Layer #2 -->
+    <div class="carousel-layer">
+      <h2>Media & Creation Portals (Layer 2)</h2>
+      <div class="carousel-tray">
+        
+        <!-- Card 1 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="GitHub"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="YouTube"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="VS Code Web"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="Stack Overflow"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+        <!-- Card 5 -->
+        <a href=" " target="_blank" rel="noopener" class="carousel-card">
+          <div class="card-image-wrapper"><img src="cmsn.png" alt="LinkedIn"></div>
+          <div class="card-content">
+            <h3 class="card-title">Coming Soon!</h3>
+            <p class="card-description">Coming Soon!</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
