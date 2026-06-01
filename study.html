@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Plus</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f5f6;
+            padding: 20px;
+        }
+        /* Main Menu Navigation */
+        .nav-header {
+            margin-bottom: 16px;
+            width: 100%;
+            max-width: 360px;
+        }
+        .main-site-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #ffffff;
+            color: #4a4a4a;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.01);
+            transition: all 0.2s ease;
+        }
+        .main-site-btn:hover {
+            background-color: #f0ede6;
+            transform: translateY(-1px);
+        }
+        /* Calculator Body */
+        .calculator {
+            width: 100%;
+            max-width: 360px;
+            background-color: #faf9f6; /* Milky white */
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04), 0 2px 5px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+        .display-container {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 0 8px;
+            text-align: right;
+        }
+        #history {
+            font-size: 0.9rem;
+            color: #9e8e77;
+            min-height: 20px;
+            margin-bottom: 4px;
+        }
+        .display-screen {
+            width: 100%;
+            height: 60px;
+            background: transparent;
+            color: #2c2c2c;
+            font-size: 2.5rem;
+            text-align: right;
+            border: none;
+            outline: none;
+            font-weight: 300;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        button {
+            height: 56px;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #4a4a4a;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button:hover {
+            background-color: #f0ede6;
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        /* Subtle color hierarchy */
+        .op { color: #9e8e77; font-weight: 500; }
+        .sci { color: #6b8e8e; font-weight: 500; }
+        .clear { color: #d97777; }
+        .equals {
+            background-color: #edebe4;
+            color: #2c2c2c;
+            font-weight: 500;
+        }
+        .equals:hover { background-color: #e2dfd5; }
+    </style>
+</head>
+<body>
+
+    <!-- Main Menu Link -->
+    <div class="nav-header">
+        <a href="https://scecrt.github.io/Super-School/" class="main-site-btn">Super School Main Menu</a>
+    </div>
+
+    <div class="calculator">
+        <div class="display-container">
+            <div id="history"></div>
+            <input type="text" id="display" value="0" readonly class="display-screen">
+        </div>
+        
+        <div class="grid">
+            <!-- Row 1: Core Controls -->
+            <button class="clear" onclick="clearAll()">AC</button>
+            <button class="op" onclick="backspace()">⌫</button>
+            <button class="sci" onclick="inputSci('pct')">%</button>
+            <button class="op" onclick="inputOp('/')">÷</button>
+
+            <!-- Row 2: 8th Grade Tools & Numbers -->
+            <button class="sci" onclick="inputSci('sqrt')">√</button>
+            <button onclick="inputNum('7')">7</button>
+            <button onclick="inputNum('8')">8</button>
+            <button class="op" onclick="inputOp('*')">×</button>
+
+            <!-- Row 3: Exponents & Numbers -->
+            <button class="sci" onclick="inputSci('sqr')">x²</button>
+            <button onclick="inputNum('4')">4</button>
+            <button onclick="inputNum('5')">5</button>
+            <button class="op" onclick="inputOp('-')">−</button>
+
+            <!-- Row 4: Numbers & Operators -->
+            <button onclick="inputNum('9')">9</button>
+            <button onclick="inputNum('1')">1</button>
+            <button onclick="inputNum('2')">2</button>
+            <button class="op" onclick="inputOp('+')">+</button>
+
+            <!-- Row 5: Decimals & Equals -->
+            <button onclick="inputNum('6')">6</button>
+            <button onclick="inputNum('3')">3</button>
+            <button onclick="inputNum('0')">0</button>
+            <button onclick="inputNum('.')">.</button>
+            
+            <!-- Row 6: Centered Equals Key -->
+            <button class="equals" style="grid-column: span 4;" onclick="calculate()">=</button>
+        </div>
+    </div>
+    <br>
+    <p>Super School</p>
+    <script>
+        const display = document.getElementById('display');
+        const history = document.getElementById('history');
+        let shouldResetDisplay = false;
+
+        function inputNum(num) {
+            if (display.value === '0' && num !== '.' || shouldResetDisplay) {
+                display.value = num;
+                shouldResetDisplay = false;
+            } else {
+                if (num === '.' && display.value.includes('.')) return;
+                display.value += num;
+            }
+        }
+
+        function inputOp(op) {
+            shouldResetDisplay = false;
+            let current = display.value;
+            if (['+', '-', '*', '/'].some(el => current.endsWith(el))) {
+                backspace();
+            }
+            display.value += op;
+        }
+
+        function clearAll() {
+            display.value = '0';
+            history.innerText = '';
+            shouldResetDisplay = false;
+        }
+
+        function backspace() {
+            if (display.value.length > 1) {
+                display.value = display.value.slice(0, -1);
+            } else {
+                display.value = '0';
+            }
+        }
+
+        function inputSci(type) {
+            let val = parseFloat(display.value);
+            if (isNaN(val)) return;
+
+            if (type === 'sqrt') {
+                if (val < 0) {
+                    display.value = "Error";
+                } else {
+                    display.value = Math.sqrt(val);
+                    history.innerText = '√(' + val + ')';
+                }
+            } else if (type === 'sqr') {
+                display.value = val * val;
+                history.innerText = val + '²';
+            } else if (type === 'pct') {
+                display.value = val / 100;
+                history.innerText = val + '%';
+            }
+            shouldResetDisplay = true;
+        }
+
+        function calculate() {
+            try {
+                let expression = display.value;
+                if (!expression) return;
+                
+                // Safe, basic calculation alternative
+                let result = eval(expression);
+                
+                if (result === undefined || isNaN(result)) throw new Error();
+                
+                history.innerText = expression + ' =';
+                display.value = Number(result.toFixed(10));
+                shouldResetDisplay = true;
+            } catch (err) {
+                display.value = 'Error';
+                shouldResetDisplay = true;
+            }
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if ((e.key >= '0' && e.key <= '9') || e.key === '.') inputNum(e.key);
+            if (['+', '-', '*', '/'].includes(e.key)) inputOp(e.key);
+            if (e.key === 'Enter' || e.key === '=') calculate();
+            if (e.key === 'Backspace') backspace();
+            if (e.key === 'Escape') clearAll();
+        });
+    </script>
+</body>
+</html>
