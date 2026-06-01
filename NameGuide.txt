@@ -1,1 +1,2 @@
-Achieve.html is web opener
+achieve.html is web opener
+study.html is Calculator
